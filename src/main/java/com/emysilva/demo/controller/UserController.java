@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -44,16 +45,17 @@ public class UserController {
 			return "signup";
 		}
 		userService.signup(user);
-		return "login";
+		return "redirect:/login";
 	}
 
 
 	@PostMapping("/login-user")
-	public String login(@Valid User user, BindingResult result) {
-		if (userService.loadUserByEmailAndPassword(user.getEmail(), user.getPassword())) {
-			userService.loadUserByEmailAndPassword(user.getEmail(), user.getPassword());
-			return "dashboard";
+	public String login(@Valid User user, BindingResult result, HttpSession session) {
+		User fetchedUser = userService.loadUserByEmailAndPassword(user.getEmail(), user.getPassword()).orElse(null);
+		if (fetchedUser != null) {
+			session.setAttribute("user", fetchedUser);
+			return "redirect:/list-posts";
 		}
-			return "login";
+			return "redirect:/login";
 	}
 }

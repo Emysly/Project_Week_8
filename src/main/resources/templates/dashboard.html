@@ -7,32 +7,48 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<div th:switch="${users}">
-    <h2 th:case="null">No users yet!</h2>
-    <div th:case="*">
-        <h2>List Posts</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.email}"></td>
-                <td><a th:href="@{/edit/{id}(id=${user.userId})}">Edit</a></td>
-                <td><a th:href="@{/delete/{id}(id=${user.userId})}">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
+<nav class="navbar navbar-light bg-primary">
+    <span class="navbar-brand mb-0 h1 text-white">Facebook App</span>
+    <div class="d-flex justify-content-end">
+        <div><a class="btn btn-outline-light bg-success text-white" th:href="@{/login}">Log Out</a></div>
     </div>
-    <p><a href="/signup">Add a new user</a></p>
+</nav>
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+    <strong>User login successful</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
-<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<div class="container mt-5">
+    <div><a class="btn btn-outline-light bg-success text-white" th:href="@{/add-post}">Add Post</a></div>
+    <div th:switch="${posts}" class="mt-5">
+        <h2 th:case="null">No posts yet!</h2>
+        <div th:case="*">
+            <h2>Posts</h2>
+<!--            <table class="table table-hover">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="col" style="width: 5%">Id</th>-->
+<!--                    <th scope="col" style="width: 60%">Title</th>-->
+<!--                    <th scope="col">Creator</th>-->
+<!--                    <th scope="col">Actions</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+                <div th:each="post : ${posts}">
+                    <h1 th:text="${post.title}"></h1>
+                    <p th:text="${post.message}"></p>
+                    <div>
+                        <a th:href="@{/edit/{id}(id=${post.postId})}">Edit</a>
+                        <a th:href="@{/view/{id}(id=${post.postId})}">Comment</a>
+                        <a th:href="@{/delete/{id}(id=${post.postId})}">Delete</a>
+                    </div>
+
+                </div>
+<!--                </tbody>-->
+<!--            </table>-->
+        </div>
+    </div>
+</div>
 </body>
 </html>

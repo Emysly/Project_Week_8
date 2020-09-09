@@ -46,11 +46,13 @@ public class User {
 
 	private String contact;
 
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String createdAt;
 
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Post> posts;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Comment> comments;
 
 
 }

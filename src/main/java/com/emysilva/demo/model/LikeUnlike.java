@@ -19,13 +19,5 @@ public class LikeUnlike {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long likeUnlikeId;
 	private LikeUnlikeType likeUnlikeType;
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "postId", referencedColumnName = "postId")
-	private Post post;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId", referencedColumnName = "userId")
-	private User user;
 
 }

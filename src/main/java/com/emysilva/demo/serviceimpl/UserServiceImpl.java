@@ -34,6 +34,8 @@ public class UserServiceImpl implements UserService {
 		newUser.setConfPassword(user.getConfPassword());
 		newUser.setCreatedAt(formatDateTime);
 		newUser.setContact(user.getContact());
+		newUser.setPosts(user.getPosts());
+		newUser.setComments(user.getComments());
 
 		userRepository.save(newUser);
 	}
@@ -49,11 +51,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-		public boolean loadUserByEmailAndPassword(String email, String password) throws UsernameNotFoundException {
+		public Optional<User> loadUserByEmailAndPassword(String email, String password) throws UsernameNotFoundException {
+			return userRepository.findByEmailAndPassword(email, password);
 
-			final Optional<User> optionalUser = userRepository.findByEmailAndPassword(email, password);
-
-			return optionalUser.isPresent();
 		}
 
 }

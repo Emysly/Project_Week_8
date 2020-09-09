@@ -5,34 +5,20 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
 </head>
 <body>
-<div th:switch="${users}">
-    <h2 th:case="null">No users yet!</h2>
-    <div th:case="*">
-        <h2>Users</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.email}"></td>
-                <td><a th:href="@{/edit/{id}(id=${user.userId})}">Edit</a></td>
-                <td><a th:href="@{/delete/{id}(id=${user.userId})}">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
+<nav class="navbar navbar-light bg-primary">
+    <span class="navbar-brand mb-0 h1 text-white">Facebook App</span>
+    <div class="d-flex justify-content-end">
+        <div><a class="btn btn-outline-light bg-success text-white" th:href="@{/signup}">Sign Up</a></div>
+        <div><a class="btn btn-outline-light bg-primary text-white ml-3"  th:href="@{/login}">Login</a></div>
     </div>
-    <p><a href="/signup">Add a new user</a></p>
+</nav>
+<div class="container">
+
+
 </div>
-<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </body>
 </html>

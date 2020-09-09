@@ -9,5 +9,5 @@ public interface UserService {
 	void signup(User user);
 	Iterable<User> findUser ();
 	Optional<User> findUserById(Long id);
-	boolean loadUserByEmailAndPassword(String email, String password) throws UsernameNotFoundException;
+	Optional<User> loadUserByEmailAndPassword(String email, String password) throws UsernameNotFoundException;
 }

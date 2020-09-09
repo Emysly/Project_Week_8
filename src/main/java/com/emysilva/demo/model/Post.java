@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -18,16 +19,14 @@ import java.util.List;
 public class Post {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long postId;
 
+	@NotBlank(message = "Title is mandatory")
 	private String title;
 
+	@NotBlank(message = "Message is mandatory")
 	private String message;
-
-	private String email;
-
-	private String username;
 
 	private String createdAt;
 

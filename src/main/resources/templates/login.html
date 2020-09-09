@@ -6,15 +6,34 @@
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<h1>Login page</h1>
+<nav class="navbar navbar-light bg-primary">
+    <span class="navbar-brand mb-0 h1 text-white">Facebook App</span>
+</nav>
+<div class="container p-5">
+    <h1 class="mt-5 text-center text-primary">Login</h1>
 <form action="#" th:action="@{/login-user}" th:object="${user}" method="post">
-    <label for="email">Email</label>
-    <input type="email" th:field="*{email}" id="email" placeholder="Email">
+    <label for="email" class="mt-5">Email</label>
+    <input class="form-control" type="email" th:field="*{email}" id="email" placeholder="Email">
     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-    <label for="password">Password</label>
-    <input type="password" th:field="*{password}" id="password" placeholder="Password">
+    <label for="password" class="mt3">Password</label>
+    <input class="form-control" type="password" th:field="*{password}" id="password" placeholder="Password">
     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-    <input type="submit" value="Login User">
+    <input type="submit" class="btn btn-block btn-outline-primary p-2 mt-3" value="Login" />
 </form>
+    <p class="mt-5">
+        not a member yet? <a th:href=@{/signup}>Sign Up</a>
+    </p>
+</div>
+<script>
+    function preventBack(){
+        window.history.forward();
+    }
+
+    setTimeout("preventBack()", 0);
+
+    window.onunload=function(){
+        null
+    };
+</script>
 </body>
 </html>
