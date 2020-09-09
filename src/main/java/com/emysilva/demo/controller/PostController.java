@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -59,7 +56,7 @@ public class PostController {
         return "redirect:/list-posts";
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping("/update/{id}")
     public String updatePost(@PathVariable("id") long id, @Valid Post post, BindingResult result,
                              Model model) {
         if (result.hasErrors()) {
@@ -67,7 +64,20 @@ public class PostController {
             return "editpost";
         }
 
-        postService.savePost(post);
+        postService.updatePost(post, id);
+        return "redirect:/list-posts";
+    }
+
+    @GetMapping("/like/{id}")
+    public String likePost(@PathVariable("id") long id, @Valid Post post, BindingResult result) {
+        postService.likePost(post, id);
+        return "redirect:/list-posts";
+    }
+
+    @GetMapping("/unlike/{id}")
+    public String unlikePost(@PathVariable("id") long id, @Valid Post post, BindingResult result) {
+
+        postService.unlikePost(post, id);
         return "redirect:/list-posts";
     }
 

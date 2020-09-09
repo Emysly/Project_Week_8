@@ -1,5 +1,6 @@
 package com.emysilva.demo.serviceimpl;
 
+import com.emysilva.demo.model.LikeUnlike;
 import com.emysilva.demo.model.Post;
 import com.emysilva.demo.repository.PostRepository;
 import com.emysilva.demo.service.PostService;
@@ -34,6 +35,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void updatePost(Post post, long id) {
+        Post postToUpdate = postRepository.findById(id).get();
+        postToUpdate.setTitle(post.getTitle());
+        postToUpdate.setMessage(post.getMessage());
+        postRepository.save(postToUpdate);
+    }
+
+    @Override
     public Optional<Post> getPost(long id) {
         return postRepository.findById(id);
     }
@@ -43,47 +52,18 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(id);
     }
 
-//    @Override
-//    public void addPost(Post post) {
-//
-//        LocalDateTime now = LocalDateTime.now();
-//        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-//        String formatDateTime = now.format(format);
-//
-//        post.setCreatedAt(formatDateTime);
-//
-//        postRepository.save(post);
-//    }
-//
-////    @Override
-////    public Optional<Post> getPost(Long id) {
-////        return postRepository.findById(id);
-////    }
-//
-//
-//    @Override
-//    public List<Post> getAllPostByUser(Long userId) {
-//        return postRepository.findAllById(Collections.singleton(userId));
-//    }
-//
-//    @Override
-//    public Post updatePost(Post post, Long postId) {
-//        LocalDateTime now = LocalDateTime.now();
-//        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-//        String formatDateTime = now.format(format);
-//        Post updatedPost = postRepository.findById(postId).get();
-//        updatedPost.setTitle(post.getTitle());
-//        updatedPost.setMessage(post.getMessage());
-//        updatedPost.setCreatedAt(formatDateTime);
-//
-//        return updatedPost;
-//    }
-//
-//    @Override
-//    public void deletePost(Long postId) {
-//        Post postToDelete = postRepository.findById(postId)
-//                .orElseThrow(() -> new SpringFacebookException("No post with id: " + postId));
-//        postRepository.delete(postToDelete);
-//    }
+    @Override
+    public void likePost(Post post, long id) {
+        Post postToLike = postRepository.findById(id).get();
+        postToLike.setLikes(post.getLikes() + 1);
+        postRepository.save(postToLike);
+    }
+
+    @Override
+    public void unlikePost(Post post, long id) {
+        Post postToUnlike = postRepository.findById(id).get();
+        postToUnlike.setUnlikes(post.getUnlikes() + 1);
+        postRepository.save(postToUnlike);
+    }
 
 }

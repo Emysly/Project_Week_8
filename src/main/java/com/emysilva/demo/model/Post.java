@@ -30,11 +30,15 @@ public class Post {
 
 	private String createdAt;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	private List<Comment> comments;
+	private int likes;
+
+	private int unlikes;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	private List<LikeUnlike> likeUnlikes;
+	private List<Comment> comments;
+//
+//	@OneToMany(fetch = FetchType.LAZY)
+//	private List<LikeUnlike> likeUnlikes;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId", referencedColumnName = "userId")
